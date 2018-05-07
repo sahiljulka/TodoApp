@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TodoModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Text" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="TodoList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" />
+    <Property Name="Description" Type="varchar" MaxLength="20" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="isDeleted" Type="bit" />
+  </EntityType>
+  <Association Name="FK__TodoList__Status__173876EA">
+    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+    <End Role="TodoList" Type="Self.TodoList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TodoList">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TodoModel1StoreContainer">
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TodoList" EntityType="Self.TodoList" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__TodoList__Status__173876EA" Association="Self.FK__TodoList__Status__173876EA">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="TodoList" EntitySet="TodoList" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
